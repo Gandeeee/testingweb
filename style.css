@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* PALET WARNA */
+:root {
+    --brand-red: #d35400;      
+    --brand-yellow: #f1c40f;   
+    --brand-brown: #4a2c2a;    
+    --brand-light: #fdfcf8;   
+    --text-dark: #3d3d3d;      
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--brand-light);
+    color: var(--text-dark);
+}
+
+/* === NAVBAR === */
+.navbar {
+    transition: background-color 0.4s ease, padding 0.4s ease;
+    padding: 1.5rem 0;
+}
+.navbar.scrolled {
+    background-color: rgba(253, 251, 248, 0.687); /* <-- latar pake semi-transparan terang */
+    padding: 0.75rem 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eee;
+}
+.navbar-logo { height: 45px; transition: height 0.4s ease; }
+.navbar.scrolled .navbar-logo { height: 35px; }
+
+
+.navbar .nav-link { 
+    color: white; /* <-- tetep putih saat di atas hero section */
+    font-weight: 600;
+    position: relative; 
+    padding-bottom: 0.5rem; 
+    margin: 0 0.5rem; 
+}
+.navbar.scrolled .nav-link {
+    color: var(--brand-brown); /* <-- biar cokelat saat navbar di-scroll */
+}
+.navbar .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--brand-yellow); transition: width 0.3s ease; }
+.navbar .nav-link:hover, .navbar.scrolled .nav-link:hover { 
+    color: var(--brand-yellow); /* <-- kuning saat hover */
+}
+.navbar .nav-link:hover::after { width: 100%; }
+
+.btn-brand-yellow {
+    background-color: var(--brand-yellow);
+    border: none;
+    color: var(--brand-brown);
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    will-change: transform, box-shadow;
+    transition: transform 0.25s ease-out, 
+                box-shadow 0.25s ease-out, 
+                background-color 0.25s ease-out, 
+                color 0.25s ease-out;
+}
+
+.btn-brand-yellow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    background-color: #ffc107; 
+    color: var(--brand-brown);
+}
+
+.navbar .nav-link.btn::after { display: none; }
+
+/* === Tombol Blob === */
+.blob-btn {
+    display: inline-block;
+    z-index: 1;
+    position: relative;
+    padding: 18px 44px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--brand-yellow); 
+    background-color: transparent;
+    outline: none;
+    border: none;
+    transition: color 0.5s;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.blob-btn::before {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--brand-yellow); /* <-- Border awal: Kuning */
+    border-radius: 50px;
+}
+
+.blob-btn::after {
+    content: "";
+    z-index: -2;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    transition: all 0.3s 0.2s;
+}
+
+.blob-btn:hover {
+    color: var(--brand-brown); /* <-- Warna teks saat hover: Cokelat */
+}
+
+.blob-btn:hover::after {
+    transition: all 0.3s;
+    left: 0;
+    top: 0;
+}
+
+.blob-btn__inner {
+    z-index: -1;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.blob-btn__blobs {
+    position: relative;
+    display: block;
+    height: 100%;
+    filter: url('#goo'); /* Menggunakan filter SVG */
+}
+
+.blob-btn__blob {
+    position: absolute;
+    top: 2px;
+    width: 25%;
+    height: 100%;
+    background: var(--brand-yellow); /* <-- Warna blob: Kuning */
+    border-radius: 100%;
+    transform: translate3d(0, 150%, 0) scale(1.7);
+    transition: transform 0.45s;
+}
+
+.blob-btn:hover .blob-btn__blob {
+    transform: translateZ(0) scale(1.7);
+}
+
+/* Ekspansi dari loop SASS secara manual */
+.blob-btn__blob:nth-child(1) {
+    left: 0;
+    transition-delay: 0s;
+}
+.blob-btn__blob:nth-child(2) {
+    left: 25%;
+    transition-delay: 0.08s;
+}
+.blob-btn__blob:nth-child(3) {
+    left: 50%;
+    transition-delay: 0.16s;
+}
+.blob-btn__blob:nth-child(4) {
+    left: 75%;
+    transition-delay: 0.24s;
+}
+
+
+/* === Hero Section ===*/
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/Assets/IMG_6079.png') no-repeat center center/cover;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(74, 44, 42, 0.9), rgba(74, 44, 42, 0.2));
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-content .display-3 { text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+
+
+/* === Judul Section === */
+.section-title { font-weight: 900; position: relative; padding-bottom: 15px; color: var(--brand-brown); }
+.section-title::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 70px; 
+    height: 5px; 
+    background: linear-gradient(90deg, var(--brand-yellow), var(--brand-red)); 
+    border-radius: 5px; 
+}
+.section-title.title-rata-kiri::after { left: 0; transform: none; }
+.section-title.text-center::after { left: 50%; transform: translateX(-50%); }
+#why-us .text-danger { color: var(--brand-red) !important; }
+#why-us .text-warning { color: var(--brand-yellow) !important; }
+#why-us .text-info { color: var(--brand-red) !important; }
+
+
+/* === Kartu Menu === */
+.card-menu {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 1rem;
+    border-bottom: 4px solid transparent; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-menu:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 10px 30px rgba(241, 196, 15, 0.25); 
+    border-bottom-color: var(--brand-red); 
+}
+
+.card-menu .card-img-top { aspect-ratio: 4/3; object-fit: cover; }
+.card-menu .card-title { font-size: 1.25rem; color: var(--brand-brown); }
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--brand-red);
+    background-color: var(--brand-light);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+/* === Lokasi Section === */
+#lokasi { background-color: #fff; border-top: 1px solid #eee; }
+#lokasi .card { background: var(--brand-light); }
+#lokasi .text-danger { color: var(--brand-red) !important; }
+.map-iframe { width: 100%; height: 100%; min-height: 400px; border: none; border-radius: 0.5rem;}
+
+/* === Carousel Lokasi === */
+#lokasiCarousel .carousel-control-prev,
+#lokasiCarousel .carousel-control-next {
+    width: 5%;
+}
+
+/* === Desain Tombol Carousel Lokasi === */
+/* Mengatur Posisi Tombol */
+#lokasiCarousel .carousel-control-prev,
+#lokasiCarousel .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;      /* Ukuran lingkaran tombol */
+    height: 45px;     /* Ukuran lingkaran tombol */
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Bayangan tombol */
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+/* Mengatur posisi spesifik di luar kartu agar tidak menutupi konten */
+#lokasiCarousel .carousel-control-prev {
+    left: -20px; 
+}
+#lokasiCarousel .carousel-control-next {
+    right: -20px; 
+}
+
+/* Menghilangkan ikon panah default (SVG) dari Bootstrap */
+#lokasiCarousel .carousel-control-prev-icon,
+#lokasiCarousel .carousel-control-next-icon {
+    background-image: none; /* Menghapus ikon default */
+    width: auto;
+    height: auto;
+}
+
+/* Membuat ikon panah baru yang bisa kita atur warnanya */
+#lokasiCarousel .carousel-control-prev-icon::before {
+    content: "\F284";
+    font-family: "bootstrap-icons";
+    font-size: 1.2rem;
+    color: var(--brand-brown); 
+    transition: color 0.3s ease;
+}
+
+#lokasiCarousel .carousel-control-next-icon::before {
+  content: "\F285"; 
+  font-family: "bootstrap-icons";
+  font-size: 1.2rem;
+  color: var(--brand-brown);
+  transition: color 0.3s ease;
+}
+
+
+
+#lokasiCarousel .carousel-control-prev:hover,
+#lokasiCarousel .carousel-control-next:hover {
+    background-color: var(--brand-red); 
+    box-shadow: 0 6px 18px rgba(211, 84, 0, 0.4);
+}
+
+#lokasiCarousel .carousel-control-prev:hover .carousel-control-prev-icon::before,
+#lokasiCarousel .carousel-control-next:hover .carousel-control-next-icon::before {
+    color: white; 
+}
+
+/* === Footer kini menggunakan warna MERAH === */
+.footer-section { 
+    background-color: var(--brand-red); 
+    color: white;
+}
+.footer-section .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+/* ===Tombol 3D di Footer === */
+
+/* Gaya dasar untuk semua tombol 3D */
+.btn-pushable {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 1rem; 
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: inherit;
+    padding: 1em 2em;
+    border-radius: 1em;
+    transform-style: preserve-3d;
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+.btn-pushable::before {
+    box-sizing: border-box;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+.btn-pushable:hover {
+    transform: translate(0, 0.375em);
+}
+
+.btn-pushable:hover::before {
+    transform: translate3d(0, 0.75em, -1em);
+}
+
+.btn-pushable:active {
+    transform: translate(0em, 0.75em);
+}
+
+.btn-pushable:active::before {
+    transform: translate3d(0, 0, -1em);
+    box-shadow: 0 0 0 2px var(--shadow-color-active), 0 0.25em 0 0 var(--shadow-color-active);
+}
+
+
+/* --- Varian Warna Tombol Putih (Pesan via WA) --- */
+.btn-pushable-white {
+    background: #f0f0f0;
+    color: var(--brand-brown);
+}
+.btn-pushable-white::before {
+    background: #dcdcdc; /* Warna sisi samping */
+    box-shadow: 0 0 0 2px #b5b5b5;/* Warna border & bayangan bawah */
+}
+.btn-pushable-white:hover {
+    background: #f7f7f7; /* Warna saat hover */
+}
+.btn-pushable-white:active {
+    --shadow-color-active: #b5b5b5; /* Warna bayangan saat ditekan */
+}
+
+
+/* --- Varian Warna Tombol Kuning (Instagram) --- */
+.btn-pushable-yellow {
+    background: var(--brand-yellow);
+    color: var(--brand-brown);
+}
+.btn-pushable-yellow::before {
+    background: #d8a100; /* Warna kuning lebih gelap untuk sisi samping */
+    box-shadow: 0 0 0 2px #b88a00, 0 0.75em 0 0 var(--brand-red); /* Warna border & bayangan bawah merah */
+}
+.btn-pushable-yellow:hover {
+    background: #ffc933; /* Warna kuning lebih cerah saat hover */
+}
+.btn-pushable-yellow:active {
+    --shadow-color-active: #b88a00; /* Warna bayangan saat ditekan */
+}
+
+/* === Tombol Scroll-to-top === */
+.scroll-to-top { position: fixed; bottom: 20px; right: 20px; background-color: var(--brand-red); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s, transform .3s; }
+.scroll-to-top.visible { opacity: 1; visibility: visible; }
+.scroll-to-top:hover { transform: scale(1.1); color: white; }
